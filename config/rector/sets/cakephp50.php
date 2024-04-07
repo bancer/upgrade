@@ -83,6 +83,7 @@ return static function (RectorConfig $rectorConfig): void {
 
             // View properties
             new AddPropertyTypeDeclaration('Cake\View\View', 'layout', $stringType),
+            new AddPropertyTypeDeclaration('Cake\View\Widget\BasicWidget', 'defaults', $arrayType),
 
             // TestSuite properties
             new AddPropertyTypeDeclaration('Cake\TestSuite\TestCase', 'fixtures', $arrayType),
