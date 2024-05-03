@@ -200,7 +200,7 @@ class FileRenameCommand extends BaseCommand
                 $path,
                 RecursiveDirectoryIterator::UNIX_PATHS
             );
-            $iterIter = new RecursiveIteratorIterator($dirIter);
+            $iterIter = new RecursiveIteratorIterator($dirIter, RecursiveIteratorIterator::CHILD_FIRST);
             $templateDirs = new RegexIterator(
                 $iterIter,
                 '#/' . $folder . '/\.$#',
