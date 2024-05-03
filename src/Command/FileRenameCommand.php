@@ -207,10 +207,21 @@ class FileRenameCommand extends BaseCommand
                 RecursiveRegexIterator::SPLIT
             );
 
+            // Collect directories in an array for sorting
+            $directories = [];
             foreach ($templateDirs as $val) {
+                $directories[] = $val[0] . '/' . $folder;
+            }
+
+            // Sort directories based on path length (longest to shortest) so that children before parents
+            usort($directories, function ($a, $b) {
+                return strlen($b) - strlen($a);
+            });
+
+            foreach ($directories as $directory) {
                 $this->renameWithCasing(
-                    $val[0] . '/' . $folder,
-                    $val[0] . '/' . strtolower($folder)
+                    $directory,
+                    strtolower($directory)
                 );
             }
         }
