@@ -210,18 +210,21 @@ class FileRenameCommand extends BaseCommand
             // Collect directories in an array for sorting
             $directories = [];
             foreach ($templateDirs as $val) {
-                $directories[] = $val[0] . '/' . $folder;
+                $directories[] = [
+                    'source' => $val[0] . '/' . $folder,
+                    'target' => $val[0] . '/' . strtolower($folder),
+                ];
             }
 
             // Sort directories based on path length (longest to shortest) so that children before parents
             usort($directories, function ($a, $b) {
-                return strlen($b) - strlen($a);
+                return strlen($b['source']) - strlen($a['source']);
             });
 
             foreach ($directories as $directory) {
                 $this->renameWithCasing(
-                    $directory,
-                    strtolower($directory)
+                    $directory['source'],
+                    $directory['target']
                 );
             }
         }
